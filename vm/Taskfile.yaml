@@ -1,0 +1,6 @@
+version: 3
+
+tasks:
+  import-image:
+    desc: Imports the vm image into the cluster
+    cmd: ./vm/import-image.sh

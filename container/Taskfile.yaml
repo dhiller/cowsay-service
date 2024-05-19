@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  publish:
+    desc: Publishes the fortune-service image
+    cmds:
+    - ./container/publish-image.sh

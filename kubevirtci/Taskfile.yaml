@@ -1,0 +1,36 @@
+version: '3'
+
+tasks:
+  up:
+    desc: Spins up the demo cluster.
+    cmds:
+    - ./kubevirtci/cluster-up/up.sh
+
+  deploy-kubevirt:
+    desc: Deploys KubeVirt on the demo cluster.
+    cmds:
+    - |
+      echo $KUBECONFIG
+      export VERSION=$(curl -s https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt)
+      echo $VERSION
+      kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-operator.yaml
+      kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml
+  deploy-kubevirt-testing-resources:
+    desc: Deploys KubeVirt additional resources on the demo cluster.
+    cmds:
+    - |
+      echo $KUBECONFIG
+      export VERSION=$(curl -s https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt)
+      echo $VERSION
+      testing_infra_url="https://gcsweb.ci.kubevirt.io/gcs/kubevirt-prow/devel/release/kubevirt/kubevirt/${VERSION}/manifests/testing"
+      kubectl create -f "${testing_infra_url}/uploadproxy-nodeport.yaml"
+
+  down:
+    desc: Tears down the demo cluster.
+    cmds:
+    - ./kubevirtci/cluster-up/down.sh
+
+  sync-kubevirtci:
+    desc: Syncs the files used to setup a demo cluster.
+    cmds:
+    - ./kubevirtci/sync-kubevirtci.sh
