@@ -33,8 +33,10 @@ spec:
       - name: fortune
         image: quay.io/dhiller/fortune-service:v20240519-cdc7680
         args:
-        - --cowsay-service-address=http://cowsay.default:8080
+        - --cowsay-service-address=http://192.168.122.213:8080
         - --address=:9090
+        # the above address is the ip of the vm which is the
+        # cluster external service
         ports:
         - name: http
           containerPort: 9090
