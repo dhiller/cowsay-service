@@ -1,0 +1,15 @@
+FROM docker.io/library/golang:1.21 as builder
+WORKDIR /go/src/github.com/kubevirt/project-infra/
+RUN mkdir -p /go/src/dhiller/ && \
+    cd /go/src/dhiller/ && \
+    git clone https://github.com/dhiller/cowsay-service.git && \
+    cd cowsay-service/ && \
+    go mod vendor && \
+    env GOPROXY=off GOFLAGS=-mod=vendor CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /go/bin/fortune-service ./cmd/fortune-service/main.go
+
+FROM quay.io/centos/centos:stream9
+RUN dnf install -y epel-release && \
+    dnf install -y fortune-mod
+COPY --from=builder /go/bin/fortune-service /usr/bin/fortune-service
+ENTRYPOINT ["/usr/bin/fortune-service"]
+
