@@ -23,6 +23,14 @@ spec:
       labels:
         kubevirt.io/domain: cowsay-service
     spec:
+      # !node-role.kubernetes.io/control-plane
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/worker
+                operator: Exists
       domain:
         devices:
           disks:
