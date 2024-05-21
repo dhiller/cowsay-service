@@ -7,20 +7,20 @@ tasks:
     - go-task cluster:up cluster:deploy-kubevirt cluster:deploy-kubevirt-testing-resources
     - kubectl create -f ./manifests/fortune-service-external.yaml
     - kubectl wait deployment --for=condition=available fortune --timeout 5m
-    - go-task vm:import-image
 
   fortune-internal:
     desc: Updates the fortune deployment to point to the internal service running inside the vm that was just imported.
     cmds:
+    - go-task vm:import-image
     - kubectl apply -f ./manifests/fortune-service-internal.yaml
     - kubectl wait deployment --for=condition=available fortune --timeout 5m
 
-  port-forward-fortune:
+  fortune-port-forward:
     desc: Adds a looped port forward for the fortune service
     cmds:
     - ./demo/port-forward.sh
 
-  port-forward-prometheus:
-    desc: Forward cluster prometheus and grafana
+  fortune-logs:
+    desc: shows the logs from the fortune containers
     cmds:
-    - ./demo/port-forward-monitoring.sh
+    - while true; do kubectl logs -f -l=app=fortune --all-containers --tail=-1; done
