@@ -1,6 +1,13 @@
 version: '3'
 
 includes:
+  demo: ./demo/Taskfile.yaml
   cluster: ./kubevirtci/Taskfile.yaml
   container: ./container/Taskfile.yaml
   vm: ./vm/Taskfile.yaml
+
+tasks:
+  kill-port-forward:
+    desc: Kills all kubectl port forwarding processes
+    cmds:
+    - pkill -f 'kubectl port-forward' || true

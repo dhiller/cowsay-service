@@ -13,8 +13,10 @@ tasks:
       echo $KUBECONFIG
       export VERSION=$(curl -s https://storage.googleapis.com/kubevirt-prow/release/kubevirt/kubevirt/stable.txt)
       echo $VERSION
-      kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-operator.yaml
-      kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml
+      kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-operator.yaml || true
+      kubectl create -f https://github.com/kubevirt/kubevirt/releases/download/${VERSION}/kubevirt-cr.yaml || true
+      kubectl wait -n kubevirt kv kubevirt --for condition=Available --timeout 15m
+
   deploy-kubevirt-testing-resources:
     desc: Deploys KubeVirt additional resources on the demo cluster.
     cmds:
