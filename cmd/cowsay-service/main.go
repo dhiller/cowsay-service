@@ -35,6 +35,7 @@ import (
 )
 
 func getListOfCowsays(w http.ResponseWriter, req *http.Request) {
+	log.Printf("handling request %s from %s", req.URL, req.RemoteAddr)
 	output, err := exec.Command("cowsay", "-l").Output()
 	if err != nil {
 		log.Printf("ERROR: cowsay: %v", err)
@@ -50,6 +51,7 @@ func getListOfCowsays(w http.ResponseWriter, req *http.Request) {
 }
 
 func getCowsay(w http.ResponseWriter, req *http.Request) {
+	log.Printf("handling request %s from %s", req.URL, req.RemoteAddr)
 	//req.URL contains the cowsay we want
 	pathElements := strings.Split(req.URL.Path, "/")
 	args := []string{}

@@ -62,6 +62,7 @@ func main() {
 }
 
 func getFortune(w http.ResponseWriter, req *http.Request) {
+	log.Printf("handling request %s from %s", req.URL, req.RemoteAddr)
 	fortuneOutput, err := exec.Command("fortune").Output()
 	if err != nil {
 		log.Printf("ERROR: fortune-service - fortune output retrieval: %v", err)
