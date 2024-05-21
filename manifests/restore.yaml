@@ -1,0 +1,10 @@
+apiVersion: snapshot.kubevirt.io/v1alpha1
+kind: VirtualMachineRestore
+metadata:
+  name: restore-cowsay-vm
+spec:
+  target:
+    apiGroup: kubevirt.io
+    kind: VirtualMachine
+    name: cowsay-service-vm
+  virtualMachineSnapshotName: snap-cowsay-vm

@@ -31,7 +31,7 @@ spec:
       terminationGracePeriodSeconds: 180
       containers:
       - name: fortune
-        image: quay.io/dhiller/fortune-service:v20240519-cdc7680
+        image: quay.io/dhiller/fortune-service:v20240521-8068f80
         args:
         - --cowsay-service-address=http://192.168.122.213:8080
         - --address=:9090

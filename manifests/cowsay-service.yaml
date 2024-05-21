@@ -23,7 +23,7 @@ spec:
       labels:
         kubevirt.io/domain: cowsay-service
     spec:
-      # !node-role.kubernetes.io/control-plane
+      evictionStrategy: LiveMigrate
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
