@@ -27,7 +27,6 @@ spec:
         devices:
           disks:
           - disk:
-              bus: sata
             name: harddrive
           interfaces:
           - name: default
