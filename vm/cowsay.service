@@ -1,0 +1,10 @@
+[Unit]
+Description=
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/cowsay-service
+
+[Install]
+WantedBy=multi-user.target
