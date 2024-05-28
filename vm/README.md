@@ -4,17 +4,31 @@ Base of the vm is the libvirt qcow2 image for [CentOS Stream 9]
 
 [CentOS Stream 9]: https://cloud.centos.org/centos/9-stream/x86_64/images/
 
-#### create a VM as service outside KubeVirt
+## create a VM as service outside KubeVirt
 
-
-##### basic setup
-
-use centos stream 9 latest qcow2 as base
+host requirements for running a virtual machine:
 
 ```bash
 sudo dnf install libvirt
 sudo dnf install virt-install
 ```
+
+### automated setup
+
+**NOTE: I haven't tested the script, I am just providing it to give an idea on how it should work.**
+
+Execute [./vm/prepare-vm.sh](./prepare-vm.sh)
+
+```bash
+./vm/prepare-vm.sh
+```
+
+### manual setup
+
+#### basic setup
+
+use centos stream 9 latest qcow2 as base
+
 
 [create vm from image](https://smoogespace.blogspot.com/2022/02/how-to-install-centos-stream-9-cloud.html)
 
@@ -26,7 +40,7 @@ sudo virt-install --name cowsay-service-centos-stream-9-vm --memory 2048 \
   --cloud-init root-password-generate=on,disable=on,ssh-key=$HOME/.ssh/id_rsa.pub
 ```
 
-##### ssh setup
+#### ssh setup
 ```bash
 $ sudo virsh net-list --all
 …
