@@ -1,0 +1,15 @@
+# kubevirtci
+export KUBEVIRTCI_TAG=$(cd $(pwd) && cat ./kubevirtci/tag)
+export KUBEVIRT_PROVIDER=k8s-1.30
+export KUBEVIRT_NUM_NODES=3
+export KUBEVIRT_DEPLOY_CDI=true
+export KUBEVIRT_DEPLOY_PROMETHEUS=false
+export KUBEVIRT_DEPLOY_GRAFANA=false
+export KUBEVIRT_STORAGE="rook-ceph-default"
+export KUBECONFIG=$(cd $(pwd) && ./kubevirtci/cluster-up/kubeconfig.sh)
+
+# golang
+export GIMME_GO_VERSION=1.21.8
+export GOROOT=$(eval $(gimme $GIMME_GO_VERSION); go env GOROOT)
+PATH_add $HOME/go/bin
+PATH_add $GOROOT/bin

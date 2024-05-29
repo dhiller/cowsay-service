@@ -2,11 +2,13 @@ version: 3
 
 tasks:
   prepare:
-    desc: Prepares the local testing cluster and creates the fortune service targeting the external running vm
+    desc: Prepares the local testing cluster, creates the fortune service targeting the external running vm, and installs KubeVirt inside the cluster
     cmds:
-    - go-task cluster:up cluster:deploy-kubevirt cluster:deploy-kubevirt-testing-resources
+    - go-task cluster:up
     - kubectl create -f ./manifests/fortune-service-external.yaml
     - kubectl wait deployment --for=condition=available fortune --timeout 5m
+    - go-task demo:fortune-port-forward
+    - go-task cluster:deploy-kubevirt cluster:deploy-kubevirt-testing-resources
 
   fortune-internal:
     desc: Updates the fortune deployment to point to the internal service running inside the vm that was just imported.

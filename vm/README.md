@@ -17,10 +17,10 @@ sudo dnf install virt-install
 
 **NOTE: I haven't tested the script, I am just providing it to give an idea on how it should work.**
 
-Execute [./vm/prepare-vm.sh](./prepare-vm.sh)
+Execute the task item that calls [./vm/prepare-vm.sh](./prepare-vm.sh)
 
 ```bash
-./vm/prepare-vm.sh
+go-task vm:prepare
 ```
 
 ### manual setup

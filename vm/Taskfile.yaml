@@ -4,3 +4,7 @@ tasks:
   import-image:
     desc: Imports the vm image into the cluster
     cmd: ./vm/import-image.sh
+
+  prepare:
+    desc: prepares the virtual machine to run on the host
+    cmd: ./vm/prepare-vm.sh
